@@ -10,13 +10,36 @@ import java.util.Optional;
 
 public class CLILauncher {
 
+	// TODO: re-explain CMD
+	/*list of commands and their meanings*/
+	private static final String CMDList[][]= {
+			{"--addPlugin","Allows to analyze the argument put in parameter and creates an instance of PluginConfig.\n"},
+			{"--loadConfigFile","Load options from file.\n"},
+			{"--justSaveConfigFile","Allows you to save command line options to a file instead of running the scan.\n"}
+	};
+	
+	private static boolean helpCMDUsed=false;
+	
     public static void main(String[] args) {
         var config = makeConfigFromCommandLineArgs(args);
-        if (config.isPresent()) {
+        if (config.isPresent() && args.length>0 && args[0].indexOf("help")==-1) {
+        	argumentChecking(args);
             var analyzer = new Analyzer(config.get());
             var results = analyzer.computeResults();
             System.out.println(results.toHTML());
-        } else displayHelpAndExit();
+        } else {
+        	helpCMDUsed=true;
+        	displayHelpAndExit();
+        }
+    }
+    
+    public static void argumentChecking(String args[]) {
+    	boolean flag=false;
+    	for (int i=0; i<args.length; i++) {
+        	for(int j=0; j<CMDList.length; j++) if(args[i].indexOf(CMDList[j][0])!=-1) flag=true;
+        	if (flag) flag=false;
+        	else displayHelpAndExit();
+		}
     }
 
     static Optional<Configuration> makeConfigFromCommandLineArgs(String[] args) {
@@ -29,36 +52,28 @@ public class CLILauncher {
                 else {
                     String pName = parts[0];
                     String pValue = parts[1];
-                    switch (pName) {
-                        case "--addPlugin":
-                            // TODO: parse argument and make an instance of PluginConfig
-
-                            // Let's just trivially do this, before the TODO is fixed:
-
-                            if (pValue.equals("countCommits")) plugins.put("countCommits", new PluginConfig() {
-                            });
-
-                            break;
-                        case "--loadConfigFile":
-                            // TODO (load options from a file)
-                            break;
-                        case "--justSaveConfigFile":
-                            // TODO (save command line options to a file instead of running the analysis)
-                            break;
-                        default:
-                            return Optional.empty();
-                    }
+                    /*switch to "if/else if/else" to avoid the problem of constant expressions with the "switch/case"*/
+                    if (pName.equals(CMDList[0][0])) {
+                    	// TODO: parse argument and make an instance of PluginConfig
+                        // Let's just trivially do this, before the TODO is fixed:
+                        if (pValue.equals("countCommits")) plugins.put("countCommits", new PluginConfig(){});
+					}else if (pName.equals(CMDList[1][0])) {
+						// TODO (load options from a file)
+					}else if (pName.equals(CMDList[2][0])) {
+						// TODO (save command line options to a file instead of running the analysis)
+					}else return Optional.empty();
+                    
                 }
-            } else {
-                gitPath = FileSystems.getDefault().getPath(arg);
-            }
+            } else gitPath = FileSystems.getDefault().getPath(arg);
         }
         return Optional.of(new Configuration(gitPath, plugins));
     }
 
     private static void displayHelpAndExit() {
-        System.out.println("Wrong command...");
-        //TODO: print the list of options and their syntax
+        if (!helpCMDUsed) System.out.println("Wrong command... One of your arguments is surely wrong.");
+        System.out.println("Here is the list of commands:");
+        //print the list of options and their syntax
+        for (String optionsAndSyntax[] : CMDList)for (String optionsOrSyntax : optionsAndSyntax) System.out.println(optionsOrSyntax);
         System.exit(0);
     }
 }
