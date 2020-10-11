@@ -79,6 +79,7 @@ public class Commit {
                         builder.setDate(fieldContent);
                         break;
                     default: // TODO: warn the user that some field was ignored
+                    	System.out.println("A field could not be retrieved and was ignored.");
                 }
                 line = input.readLine(); //prepare next iteration
                 if (line == null) parseError(); // end of stream is not supposed to happen now (commit data incomplete)
@@ -110,7 +111,7 @@ public class Commit {
                 (mergedFrom != null ? ("mergedFrom...='" + mergedFrom + '\'') : "") + //TODO: find out if this is the only optional field
                 ", date='" + date + '\'' +
                 ", author='" + author + '\'' +
-                ", description='" + description + '\'' +
+                (description != null ? (", description='" + description + '\'') : "") +
                 '}';
     }
 }
