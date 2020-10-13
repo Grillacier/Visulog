@@ -31,7 +31,7 @@ Tasks achieved :
 - adding new issues
 - Issues assigned
 To do for next time :
--Try one issue per person 
+-Try one issue per person
 Members present :
 - BA Ibrahima
 - FOUQUET Aurélie
@@ -40,3 +40,33 @@ Members present :
 - SILVESTRE David
 - CHHAY Davy
 - BAH Awa
+
+
+Meeting Log #3 (12 October 2020)
+Starting time : 10 : 30 PM
+Ending time : 11 : 45 PM
+
+SUBJECT:
+
+ TASK BRAINSTROMED:
+- Talking about the taks that have to be done and talk already done.
+- Preparing the session of tomorrow (13 October 2020).
+- Examine encountered problems.
+- Discuss about difficult issues.
+
+ TASK DONE:
+- Found questions to ask to the Teacher
+- Prepare the next week (set next meeting and continue issues)
+- Understanding the code of the issues #9
+
+ TO DO:
+ -Continue to works on issues
+ -Accept and check the marge request
+
+MEMBERS PRESENT:
+- SILVESTRE Alaia
+- BA Ibrahima
+- FOUQUET Aurélie
+- BAH Awa
+- TAN Julia
+- CHHAY Davy
