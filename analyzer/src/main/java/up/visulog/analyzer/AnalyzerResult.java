@@ -1,3 +1,9 @@
+/**
+ * WIP
+ * DO NOT MERGE
+ * not sure if this is the right method to generate a file, need advices
+ **/
+
 package up.visulog.analyzer;
 
 import java.util.List;
@@ -20,5 +26,15 @@ public class AnalyzerResult {
 
     public String toHTML() {
         return "<html><body>"+subResults.stream().map(AnalyzerPlugin.Result::getResultAsHtmlDiv).reduce("", (acc, cur) -> acc + cur) + "</body></html>";
+    }
+
+    public void createHtml(String name) {
+        if (name.equals(""))
+            File destination = new File("/visulog/index.html");
+        else
+            File destination = new File("/visulog/"+name+".html");
+        try {
+            Files.write(toHTML(), destination, Charset.forName("UTF-8"));
+        } catch (IOException e) {}
     }
 }
