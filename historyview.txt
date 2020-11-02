@@ -1,0 +1,4 @@
+Historique général :
+-Commandes, commits, Merge request, commentaires etc...
+
+A compléter au fur et à mesure
