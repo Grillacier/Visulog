@@ -70,3 +70,33 @@ MEMBERS PRESENT:
 - BAH Awa
 - TAN Julia
 - CHHAY Davy
+
+Meeting Log #4 (23 October 2020)
+Starting time : 9 : 40 PM
+Ending Time : 10 : 30 PM
+
+SUBJECT:
+
+ TASK BRAINSTROMED:
+ -A way to divide Analysis(a Java or Javascript bloc and an html bloc)
+ -Using html and css for htmlflow
+ -Talk about git command
+ -A way to get everyone contribution
+ -Try to understand PlugIn Config
+
+ TASK DONE:
+ -Accept merges request(gitignore and html)
+ -Change and clarify some issues
+ 
+ TO DO:
+ -Continue to work on issues
+ -Continue to split issues
+ -Continue to try to understand issues
+ 
+ MEMBERS PRESENT:
+- SILVESTRE Alaia
+- BA Ibrahima
+- SAAD David
+- TAN Julia
+- CHHAY Davy
+
