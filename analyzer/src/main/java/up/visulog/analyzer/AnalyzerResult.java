@@ -19,6 +19,14 @@ public class AnalyzerResult {
     }
 
     public String toHTML() {
-        return "<html><body>"+subResults.stream().map(AnalyzerPlugin.Result::getResultAsHtmlDiv).reduce("", (acc, cur) -> acc + cur) + "</body></html>";
+    	static HtmlView view = StaticHtml.view(v -> v
+            .html()
+            	.body()
+            		.p().text(subResults.stream().map(AnalyzerPlugin.Result::getResultAsHtmlDiv).reduce("", (acc, cur) -> acc + cur)).__()
+            	.__() //body
+            .__()); // html
+    	String html = view.render(); 
+    	return html;
     }
+
 }
