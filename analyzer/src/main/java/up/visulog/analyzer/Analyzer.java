@@ -8,13 +8,35 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class Analyzer {
+public class Analyzer implements Runnable {
     private final Configuration config;
 
     private AnalyzerResult result;
 
     public Analyzer(Configuration config) {
         this.config = config;
+    }
+
+    //creation of a Thread to stock the runnable plugins
+    private Thread tousLesPlugins = new Thread();
+
+    private volatile boolean running = true;
+
+    public void arreter() {
+        this.running = false;
+    }
+
+    //run() method from the Runnable interface
+    @Override
+    public void run() {
+        while (running) {
+            //traitement du thread
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
     public AnalyzerResult computeResults() {
@@ -26,8 +48,12 @@ public class Analyzer {
             plugin.ifPresent(plugins::add);
         }
         // run all the plugins
-        // TODO: try running them in parallel
-        for (var plugin: plugins) plugin.run();
+        for (var plugin: plugins) {
+            tousLesPlugins = Thread(plugin);
+        }
+        //start() calls the run() method
+        tousLesPlugins.start();
+        arreter();
 
         // store the results together in an AnalyzerResult instance and return it
         return new AnalyzerResult(plugins.stream().map(AnalyzerPlugin::getResult).collect(Collectors.toList()));
