@@ -62,15 +62,17 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
             html.append("</ul></div>");
             return html.toString();
         }
-
-        public void createHtml(String name) {
-            if (name.equals(""))
-                File destination = new File("/visulog/results.html");
-            else
-                File destination = new File("/visulog/"+name+".html");
-            try {
-                Files.write(getResultAsHtmlDiv(), destination, Charset.forName("UTF-8"));
-            } catch (IOException e) {}
-        }
     }
+    
+    public void graph(List<Commit> gitLog) {
+    	System.out.print("<!DOCTYPE HTML><html><head><script>");
+    	System.out.print("window.onload=function(){ var chart=new CanvasJS.Chart(\"chartContainer\",{ animationEnabled: true, theme: \"light1\", title:{ text: \"Commit per author\"},");
+    	System.out.print("axisY:{ includeZero: true }, data: [{ type: \"column\", dataPoints: [");
+    	foreach (commit.author : gitLog) {
+    			System.out.print("{ label: \""+commit.author+"\", y: "+result+"},");
+    		}
+    	System.out.print("] }] }); chart.render();}");
+    	System.out.print("</script></head><body><div id=\"chartContainer\" style=\"height: 370px; width: 100%;\"></div><script src=\"https://canvasjs.com/assets/script/canvasjs.min.js\"></script></body></html>");
+    }
+    
 }
