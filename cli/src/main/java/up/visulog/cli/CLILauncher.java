@@ -4,6 +4,8 @@ import up.visulog.analyzer.Analyzer;
 import up.visulog.config.Configuration;
 import up.visulog.config.PluginConfig;
 
+import java.io.File;
+import java.lang.ProcessBuilder.Redirect;
 import java.nio.file.FileSystems;
 import java.util.HashMap;
 import java.util.Optional;
@@ -61,8 +63,11 @@ public class CLILauncher {
 						// TODO (load options from a file)
 					}else if (pName.equals(CMDList[2][0])) {
 						// TODO (save command line options to a file instead of running the analysis)
-					}else return Optional.empty();
-                    
+						ProcessBuilder pb = new ProcessBuilder(CMDList[2][0], args[1]);
+						 File cmdLines = new File("cmdLines");
+						 pb.redirectErrorStream(true);
+						 pb.redirectInput(Redirect.appendTo(cmdLines));
+					}else return Optional.empty(); 
                 }
             } else gitPath = FileSystems.getDefault().getPath(arg);
         }
