@@ -28,13 +28,12 @@ public class AnalyzerResult {
     }
 
     public void createHtml(String name) {
-    	String tableauChaine = "<html><body>chaine1 chaine2,chaine3,chaine4</body></html>";
         try {
         	Scanner scanner = new Scanner( System.in );
         	String nom="index";
         	
         	List<String> lines = new ArrayList<String>();
-        	for (String line : tableauChaine.split(">"))lines.add(line+">");//allows to have a good layout of the document
+        	for (String line : toHTML().split(">"))lines.add(line+">");//allows to have a good layout of the document
         	
         	if (!name.equals(""))nom=name;//attribute the name to the file
         	File destination = new File(nom+".html");
@@ -53,14 +52,14 @@ public class AnalyzerResult {
     		newfile.close();
     		System.out.println(destination.toURI());  
     		
-    		openBrower(destination);
+    		openBrowser(destination);
     		scanner.close();
         }catch(IOException e){
         	System.out.println(e.getMessage());
         }
     }
     
-    public void openBrower(File f) {
+    public void openBrowser(File f) {
     	Scanner scanner = new Scanner( System.in );
     	System.out.println("Do you want to open the file in your browser? (yes/no) [default case : yes]");
 		if (scanner.nextLine().equalsIgnoreCase("no")) {
@@ -73,11 +72,5 @@ public class AnalyzerResult {
 			System.out.println("No default browser.");
 		}
 		scanner.close();
-    }
-    
-    public static void main(String[] args) {
-    	AnalyzerResult a=new AnalyzerResult(null);
-    	a.createHtml("dwilliam");
-    	
     }
 }
