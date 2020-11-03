@@ -1,3 +1,9 @@
+/**
+ * WIP
+ * DO NOT MERGE
+ * not sure if this is the right method to generate a file, need advices
+ **/
+
 package up.visulog.analyzer;
 
 import up.visulog.config.Configuration;
@@ -59,6 +65,16 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
             }
             html.append("</ul></div>");
             return html.toString();
+        }
+
+        public void createHtml(String name) {
+            if (name.equals(""))
+                File destination = new File("/visulog/results.html");
+            else
+                File destination = new File("/visulog/"+name+".html");
+            try {
+                Files.write(getResultAsHtmlDiv(), destination, Charset.forName("UTF-8"));
+            } catch (IOException e) {}
         }
     }
 }
