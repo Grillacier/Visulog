@@ -1,4 +1,5 @@
 package up.visulog.analyzer;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -29,9 +30,10 @@ public class AnalyzerResult {
     public void createHtml(String name) {
     	String tableauChaine = "<html><body>chaine1 chaine2,chaine3,chaine4</body></html>";
         try {
+        	Scanner scanner = new Scanner( System.in );
         	String nom="index";
-        	List<String> lines = new ArrayList<String>();
         	
+        	List<String> lines = new ArrayList<String>();
         	for (String line : tableauChaine.split(">"))lines.add(line+">");//allows to have a good layout of the document
         	
         	if (!name.equals(""))nom=name;//attribute the name to the file
@@ -40,22 +42,42 @@ public class AnalyzerResult {
         	System.out.println("File saved in: "+destination.getAbsoluteFile());
         	
         	if(destination.exists() && !destination.isDirectory()){
-        		try ( Scanner scanner = new Scanner( System.in ) ){
         			System.out.println("Do you want to overwrite the old file? (yes/no) [default case : yes]");
-        			if (scanner.nextLine().equalsIgnoreCase("no"))return;
-        		}
+        			if (scanner.nextLine().equalsIgnoreCase("no")) {
+        				scanner.close();
+						return;
+					}
         	}
-        	FileWriter newfile= new FileWriter(destination.getPath());
+    		FileWriter newfile= new FileWriter(destination.getPath());
         	for (String string : lines) newfile.write(string);
     		newfile.close();
+    		System.out.println(destination.toURI());  
+    		
+    		openBrower(destination);
+    		scanner.close();
         }catch(IOException e){
         	System.out.println(e.getMessage());
         }
     }
     
-//    public static void main(String[] args) {
-//    	AnalyzerResult a=new AnalyzerResult(null);
-//    	a.createHtml("cwilliam");
-//    	
-//    }
+    public void openBrower(File f) {
+    	Scanner scanner = new Scanner( System.in );
+    	System.out.println("Do you want to open the file in your browser? (yes/no) [default case : yes]");
+		if (scanner.nextLine().equalsIgnoreCase("no")) {
+			scanner.close();
+			return;
+		}
+		try {
+    		Desktop.getDesktop().browse(f.toURI());
+		} catch (Exception e) {
+			System.out.println("No default browser.");
+		}
+		scanner.close();
+    }
+    
+    public static void main(String[] args) {
+    	AnalyzerResult a=new AnalyzerResult(null);
+    	a.createHtml("dwilliam");
+    	
+    }
 }
