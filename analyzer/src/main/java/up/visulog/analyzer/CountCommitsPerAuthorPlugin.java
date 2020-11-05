@@ -1,9 +1,3 @@
-/**
- * WIP
- * DO NOT MERGE
- * not sure if this is the right method to generate a file, need advices
- **/
-
 package up.visulog.analyzer;
 
 import up.visulog.config.Configuration;
@@ -12,6 +6,8 @@ import up.visulog.gitrawdata.Commit;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.junit;
 
 public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
     private final Configuration configuration;
@@ -64,10 +60,11 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
         }
 
         public void createHtml(String name) {
+            File destination = new File();
             if (name.equals(""))
-                File destination = new File("/visulog/results.html");
+                destination = new File("/visulog/results.html");
             else
-                File destination = new File("/visulog/"+name+".html");
+                destination = new File("/visulog/"+name+".html");
             try {
                 Files.write(getResultAsHtmlDiv(), destination, Charset.forName("UTF-8"));
             } catch (IOException e) {}
