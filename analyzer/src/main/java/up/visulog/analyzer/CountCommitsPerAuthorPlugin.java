@@ -7,8 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit;
-
 public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
     private final Configuration configuration;
     private Result result;
@@ -57,17 +55,6 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
             }
             html.append("</ul></div>");
             return html.toString();
-        }
-
-        public void createHtml(String name) {
-            File destination = new File();
-            if (name.equals(""))
-                destination = new File("/visulog/results.html");
-            else
-                destination = new File("/visulog/"+name+".html");
-            try {
-                Files.write(getResultAsHtmlDiv(), destination, Charset.forName("UTF-8"));
-            } catch (IOException e) {}
         }
     }
 }
