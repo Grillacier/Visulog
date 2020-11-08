@@ -87,12 +87,20 @@ SUBJECT:
  TASK DONE:
  -Accept merges request(gitignore and html)
  -Change and clarify some issues
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 1cdfc6442a22289a8d2715326fb4fc20b48de016
  TO DO:
  -Continue to work on issues
  -Continue to split issues
  -Continue to try to understand issues
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 1cdfc6442a22289a8d2715326fb4fc20b48de016
  MEMBERS PRESENT:
 - SILVESTRE Alaia
 - BA Ibrahima
@@ -100,6 +108,7 @@ SUBJECT:
 - TAN Julia
 - CHHAY Davy
 
+<<<<<<< HEAD
 Meeting Log #5 (7 November 2020)
 Starting time : 9:00 PM
 Ending time : 00:00 AM
@@ -122,3 +131,5 @@ MEMBERS PRESENT:
 - TAN Julia
 - BAH Awa
 - BA Ibrahima
+=======
+>>>>>>> 1cdfc6442a22289a8d2715326fb4fc20b48de016
