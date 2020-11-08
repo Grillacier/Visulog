@@ -70,3 +70,55 @@ MEMBERS PRESENT:
 - BAH Awa
 - TAN Julia
 - CHHAY Davy
+
+Meeting Log #4 (23 October 2020)
+Starting time : 9 : 40 PM
+Ending Time : 10 : 30 PM
+
+SUBJECT:
+
+ TASK BRAINSTROMED:
+ -A way to divide Analysis(a Java or Javascript bloc and an html bloc)
+ -Using html and css for htmlflow
+ -Talk about git command
+ -A way to get everyone contribution
+ -Try to understand PlugIn Config
+
+ TASK DONE:
+ -Accept merges request(gitignore and html)
+ -Change and clarify some issues
+
+ TO DO:
+ -Continue to work on issues
+ -Continue to split issues
+ -Continue to try to understand issues
+
+ MEMBERS PRESENT:
+- SILVESTRE Alaia
+- BA Ibrahima
+- SAAD David
+- TAN Julia
+- CHHAY Davy
+
+Meeting Log #5 (7 November 2020)
+Starting time : 9:00 PM
+Ending time : 00:00 AM
+
+SUBJECT : Ask about HTMLFlow and CanvasJS
+
+TASK BRAINSTROMED:
+- Discussions on HTMLFlow and CanvasJs issues between the new pairs formed
+
+TASK DONE:
+-Exploration of merged commits
+-Modification of the AnalyzerResults.java and CLILauncher.java files which allowed to generate an html page with the number of commits per person
+
+TO DO:
+-Fix the small bugs
+-Continue HTMLFlow and CanvasJS
+
+MEMBERS PRESENT:
+- FOUQUET Aurélie
+- TAN Julia
+- BAH Awa
+- BA Ibrahima
