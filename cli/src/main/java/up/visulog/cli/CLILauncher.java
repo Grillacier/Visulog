@@ -1,12 +1,14 @@
 package up.visulog.cli;
 
+import java.io.File;
+import java.nio.file.FileSystems;
+import java.util.HashMap;
+import java.util.Optional;
+
 import up.visulog.analyzer.Analyzer;
 import up.visulog.config.Configuration;
 import up.visulog.config.PluginConfig;
 
-import java.nio.file.FileSystems;
-import java.util.HashMap;
-import java.util.Optional;
 
 public class CLILauncher {
 
@@ -15,7 +17,8 @@ public class CLILauncher {
 	private static final String CMDList[][]= {
 			{"--addPlugin","Allows to analyze the argument put in parameter and creates an instance of PluginConfig.\n"},
 			{"--loadConfigFile","Load options from file.\n"},
-			{"--justSaveConfigFile","Allows you to save command line options to a file instead of running the scan.\n"}
+			{"--justSaveConfigFile","Allows you to save command line options to a file instead of running the scan.\n"},
+			{"--import","Choose the project you want visulog to analyze for example: --import=/home/prepro/visulog"}
 	};
 	
 	private static boolean helpCMDUsed=false;
@@ -43,7 +46,9 @@ public class CLILauncher {
     }
 
     static Optional<Configuration> makeConfigFromCommandLineArgs(String[] args) {
-        var gitPath = FileSystems.getDefault().getPath(".");
+    	var gitPath=FileSystems.getDefault().getPath(".");
+    	String flagGitPath= ".";
+    	
         var plugins = new HashMap<String, PluginConfig>();
         for (var arg : args) {
             if (arg.startsWith("--")) {
@@ -52,7 +57,7 @@ public class CLILauncher {
                 else {
                     String pName = parts[0];
                     String pValue = parts[1];
-                    /*switch to "if/else if/else" to avoid the problem of constant expressions with the "switch/case"*/
+
                     if (pName.equals(CMDList[0][0])) {
                     	// TODO: parse argument and make an instance of PluginConfig
                         // Let's just trivially do this, before the TODO is fixed:
@@ -61,11 +66,17 @@ public class CLILauncher {
 						// TODO (load options from a file)
 					}else if (pName.equals(CMDList[2][0])) {
 						// TODO (save command line options to a file instead of running the analysis)
+					}else if (pName.equals(CMDList[3][0])) {
+						File file = new File(pValue);
+						if(file.exists() && file.isDirectory()) {
+							gitPath=FileSystems.getDefault().getPath(pValue);
+							flagGitPath=pValue;
+						}
 					}else return Optional.empty();
-                    
                 }
             } else gitPath = FileSystems.getDefault().getPath(arg);
         }
+        System.out.println("Project analysis: "+ (!flagGitPath.equals(".") ? flagGitPath : "Visulog (default)"));//Debug
         return Optional.of(new Configuration(gitPath, plugins));
     }
 
