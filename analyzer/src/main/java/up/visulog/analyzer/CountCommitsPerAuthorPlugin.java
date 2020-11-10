@@ -1,9 +1,3 @@
-/**
- * WIP
- * DO NOT MERGE
- * not sure if this is the right method to generate a file, need advices
- **/
-
 package up.visulog.analyzer;
 
 import up.visulog.config.Configuration;
@@ -52,8 +46,42 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
         public String getResultAsString() {
             return commitsPerAuthor.toString();
         }
+        
+        public String getResultAsHtmlDiv() {
+        	StringBuilder script = new StringBuilder("<head>\n<script>\n window.onload = function () {\n"
+        			+"var chart = new CanvasJS.Chart(\"chartContainer\", {\n"
+        			+ "animationEnabled: true,\n"
+        			+ "title: {\n"
+        			+ "text:\"Commits per author\"\n"
+        			+ "},\n"
+        			+ "axisX:{\n"
+        			+ "interval: 1\n"
+        			+ "},\n"
+        			+ "axisY2:{\n"
+        			+ "interlacedColor: \"rgba(1,77,101,.2)\",\n"
+        			+ "gridColor: \"rgba(1,77,101,.1)\",\n"
+        			+ "title: \"Number of Commits\"\n"
+        			+ "},\n"
+        			+ "data: [{\n"
+        			+ "type: \"bar\",\n"
+        			+ "name: \"author\",\n"
+        			+ "axisYType: \"secondary\",\n"
+        			+ "color: \"#014D65\",\n"
+        			+ "dataPoints: [\n");
+        	for (var item : commitsPerAuthor.entrySet()) {
+        		script.append("{ y: ").append(item.getValue()).append(", label: \"").append(item.getKey()).append("\"},\n");
+        	}
+        	script.append("{ y: 0, label: \"Author\"}\n"
+        			+ "]\n"
+        			+ "}]\n"
+        			+ "});\n"
+        			+ "chart.render();\n"
+        			+ "}\n"
+        			+ "</script>\n</head>\n");
+        	return script.toString();
+        }
 
-        @Override
+      /*  @Override
         public String getResultAsHtmlDiv() {
             StringBuilder html = new StringBuilder("<div>Commits per author: <ul>");
             for (var item : commitsPerAuthor.entrySet()) {
@@ -61,18 +89,6 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
             }
             html.append("</ul></div>");
             return html.toString();
-        }
+        }*/
     }
-    
-    public void graph(List<Commit> gitLog) {
-    	System.out.print("<!DOCTYPE HTML><html><head><script>");
-    	System.out.print("window.onload=function(){ var chart=new CanvasJS.Chart(\"chartContainer\",{ animationEnabled: true, theme: \"light1\", title:{ text: \"Commit per author\"},");
-    	System.out.print("axisY:{ includeZero: true }, data: [{ type: \"column\", dataPoints: [");
-    	foreach (commit.author : gitLog) {
-    			System.out.print("{ label: \""+commit.author+"\", y: "+result+"},");
-    		}
-    	System.out.print("] }] }); chart.render();}");
-    	System.out.print("</script></head><body><div id=\"chartContainer\" style=\"height: 370px; width: 100%;\"></div><script src=\"https://canvasjs.com/assets/script/canvasjs.min.js\"></script></body></html>");
-    }
-    
 }
