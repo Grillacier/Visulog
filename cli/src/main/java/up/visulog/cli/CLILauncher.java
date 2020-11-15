@@ -15,6 +15,7 @@ public class CLILauncher {
         if (config.isPresent()) {
             var analyzer = new Analyzer(config.get());
             var results = analyzer.computeResults();
+            results.createHtml("index");
             System.out.println(results.toHTML());
         } else displayHelpAndExit();
     }

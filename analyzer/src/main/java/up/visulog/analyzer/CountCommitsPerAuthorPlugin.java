@@ -1,9 +1,3 @@
-/**
- * WIP
- * DO NOT MERGE
- * not sure if this is the right method to generate a file, need advices
- **/
-
 package up.visulog.analyzer;
 
 import up.visulog.config.Configuration;
@@ -57,24 +51,10 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
         public String getResultAsHtmlDiv() {
             StringBuilder html = new StringBuilder("<div>Commits per author: <ul>");
             for (var item : commitsPerAuthor.entrySet()) {
-            	static HtmlView view2 = StaticHtml.view(v -> v
-                        .li().text(item.getKey() + ": " + item.getValue()).__()
-                        .__()); // li
-            	String string2 = view2.render(); 
-            	html.append(string2);
+                html.append("<li>").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
             }
             html.append("</ul></div>");
             return html.toString();
-        }
-
-        public void createHtml(String name) {
-            if (name.equals(""))
-                File destination = new File("/visulog/results.html");
-            else
-                File destination = new File("/visulog/"+name+".html");
-            try {
-                Files.write(getResultAsHtmlDiv(), destination, Charset.forName("UTF-8"));
-            } catch (IOException e) {}
         }
     }
 }
