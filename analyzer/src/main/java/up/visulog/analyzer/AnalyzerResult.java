@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import up.visulog.webgen.ToHtmlFlow;
+import up.visulog.webgen.*;
 
 public class AnalyzerResult implements ToHtmlFlow {
     public List<AnalyzerPlugin.Result> getSubResults() {
