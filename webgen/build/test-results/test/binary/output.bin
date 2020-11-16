@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<title>
+			HtmlFlow
+		</title>
+		</head>
+	<body>
+		<div class="container">
+			<h1>
+ 				My first page with HtmlFlow
+				</h1>
+%			<img src="http://bit.ly/2MoHwrU">
+			<p>
+				Typesafe is awesome! :-)
+			</p>
+			</div>
+		</body>
+</html>
