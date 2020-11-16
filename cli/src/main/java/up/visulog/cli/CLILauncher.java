@@ -29,7 +29,6 @@ public class CLILauncher {
         	argumentChecking(args);
             var analyzer = new Analyzer(config.get());
             var results = analyzer.computeResults();
-            results.createHtml("index");
             System.out.println(results.toHTML());
         } else {
         	helpCMDUsed=true;
