@@ -1,2 +1,0 @@
-up/visulog/webgen/TestHTML.java
- up.visulog.webgen.TestHTML
