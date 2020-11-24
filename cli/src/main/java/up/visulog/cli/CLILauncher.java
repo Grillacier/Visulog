@@ -20,22 +20,23 @@ public class CLILauncher {
 			{"--justSaveConfigFile","Allows you to save command line options to a file instead of running the scan.\n"},
 			{"--import","Choose the project you want visulog to analyze for example: --import=/home/prepro/visulog"}
 	};
-	
+
 	private static boolean helpCMDUsed=false;
-	
+
     public static void main(String[] args) {
         var config = makeConfigFromCommandLineArgs(args);
         if (config.isPresent() && args.length>0 && args[0].indexOf("help")==-1) {
         	argumentChecking(args);
             var analyzer = new Analyzer(config.get());
             var results = analyzer.computeResults();
+						results.createHtml("index");
             System.out.println(results.toHTML());
         } else {
         	helpCMDUsed=true;
         	displayHelpAndExit();
         }
     }
-    
+
     public static void argumentChecking(String args[]) {
     	boolean flag=false;
     	for (int i=0; i<args.length; i++) {
@@ -48,7 +49,7 @@ public class CLILauncher {
     static Optional<Configuration> makeConfigFromCommandLineArgs(String[] args) {
     	var gitPath=FileSystems.getDefault().getPath(".");
     	String flagGitPath= ".";
-    	
+
         var plugins = new HashMap<String, PluginConfig>();
         for (var arg : args) {
             if (arg.startsWith("--")) {

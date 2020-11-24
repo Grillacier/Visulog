@@ -6,8 +6,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import up.visulog.webgen.ToHtmlFlow;
 
-public class AnalyzerResult {
+
+public class AnalyzerResult implements ToHtmlFlow{
     public List<AnalyzerPlugin.Result> getSubResults() {
         return subResults;
     }
@@ -24,7 +26,7 @@ public class AnalyzerResult {
     }
 
     public String toHTML() {
-        return "<html><body>"+subResults.stream().map(AnalyzerPlugin.Result::getResultAsHtmlDiv).reduce("", (acc, cur) -> acc + cur) + "</body></html>";
+        return resultHTMLFlow(subResults.stream().map(AnalyzerPlugin.Result::getResultAsHtmlDiv).reduce("", (acc, cur) -> acc + cur));
     }
 
     public void createHtml(String name) {
