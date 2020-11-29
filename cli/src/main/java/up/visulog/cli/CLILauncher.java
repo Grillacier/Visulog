@@ -18,7 +18,7 @@ public class CLILauncher {
 			{"--addPlugin","Allows to analyze the argument put in parameter and creates an instance of PluginConfig.\n"},
 			{"--loadConfigFile","Load options from file.\n"},
 			{"--justSaveConfigFile","Allows you to save command line options to a file instead of running the scan.\n"},
-			{"--import","Choose the project you want visulog to analyze for example: --import=/home/prepro/visulog"}
+			{"--repository","Choose the project you want visulog to analyze for example: --repository=/home/prepro/visulog .\n"}
 	};
 
 	private static boolean helpCMDUsed=false;
