@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.lang.*;
 
 public class Analyzer {
     private final Configuration config;
@@ -28,6 +29,10 @@ public class Analyzer {
         // run all the plugins
         // TODO: try running them in parallel
         for (var plugin: plugins) plugin.run();
+        for (var plugin: plugins) {
+            Thread t = new Thread();
+            t.start();
+        }
 
         // store the results together in an AnalyzerResult instance and return it
         return new AnalyzerResult(plugins.stream().map(AnalyzerPlugin::getResult).collect(Collectors.toList()));
