@@ -1,9 +1,3 @@
-/**
- * WIP
- * DO NOT MERGE
- * not sure if this is the right method to generate a file, need advices
- **/
-
 package up.visulog.analyzer;
 
 import up.visulog.config.Configuration;
@@ -53,28 +47,21 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
             return commitsPerAuthor.toString();
         }
 
+        /*
+         * getResultAsHtmlDiv has to be moved to HTML.java in webgen
+         * For that, I don't know if the whole inner class Result has to be moved to the HTML class or not 
+         * (moving just the function getResultAsHtmlDiv isn't possible since the inner class Result must implement the inherited abstract method AnalyzerPlugin.Result.getResultAsHtmlDiv())
+         * If so, it will affect the functionment of the class CountCommitsPerAuthorPlugin since it uses the commitsPerAuthor attribut of the inner class Result
+         */
+         
         @Override
         public String getResultAsHtmlDiv() {
-            StringBuilder html = new StringBuilder("<div>Commits per author: <ul>");
+        	StringBuilder html = new StringBuilder("<div>Commits per author: <ul>");
             for (var item : commitsPerAuthor.entrySet()) {
-            	static HtmlView view2 = StaticHtml.view(v -> v
-                        .li().text(item.getKey() + ": " + item.getValue()).__()
-                        .__()); // li
-            	String string2 = view2.render(); 
-            	html.append(string2);
+                html.append("<li>").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
             }
             html.append("</ul></div>");
             return html.toString();
-        }
-
-        public void createHtml(String name) {
-            if (name.equals(""))
-                File destination = new File("/visulog/results.html");
-            else
-                File destination = new File("/visulog/"+name+".html");
-            try {
-                Files.write(getResultAsHtmlDiv(), destination, Charset.forName("UTF-8"));
-            } catch (IOException e) {}
         }
     }
 }

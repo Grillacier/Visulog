@@ -1,12 +1,13 @@
-/**
- * WIP
- * DO NOT MERGE
- * not sure if this is the right method to generate a file, need advices
- **/
-
 package up.visulog.analyzer;
 
+/*import java.awt.Desktop;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;*/
 import java.util.List;
+
 
 public class AnalyzerResult {
     public List<AnalyzerPlugin.Result> getSubResults() {
@@ -24,24 +25,58 @@ public class AnalyzerResult {
         return subResults.stream().map(AnalyzerPlugin.Result::getResultAsString).reduce("", (acc, cur) -> acc + "\n" + cur);
     }
 
-    public String toHTML() {
-    	static HtmlView view = StaticHtml.view(v -> v
-            .html()
-            	.body()
-            		.p().text(subResults.stream().map(AnalyzerPlugin.Result::getResultAsHtmlDiv).reduce("", (acc, cur) -> acc + cur)).__()
-            	.__() //body
-            .__()); // html
-    	String html = view.render(); 
-    	return html;
+	/*
+	 *The following functions (toHTML, createHtml, and OpenBrowser) were moved to HTML.java in webgen
+	*/
+	
+	/*public String toHTML() {
+        return "<html><body>"+subResults.stream().map(AnalyzerPlugin.Result::getResultAsHtmlDiv).reduce("", (acc, cur) -> acc + cur) + "</body></html>";
     }
 
     public void createHtml(String name) {
-        if (name.equals(""))
-            File destination = new File("/visulog/index.html");
-        else
-            File destination = new File("/visulog/"+name+".html");
-        try {
-            Files.write(toHTML(), destination, Charset.forName("UTF-8"));
-        } catch (IOException e) {}
+    	try {
+        	Scanner scanner = new Scanner( System.in );
+        	String nom="index";
+        	
+        	List<String> lines = new ArrayList<String>();
+        	for (String line : toHTML().split(">"))lines.add(line+">");//allows to have a good layout of the document
+        	
+        	if (!name.equals(""))nom=name;//attribute the name to the file
+        	File destination = new File(nom+".html");
+        	
+        	System.out.println("File saved in: "+destination.getAbsoluteFile());
+        	
+        	if(destination.exists() && !destination.isDirectory()){
+        			System.out.println("Do you want to overwrite the old file? (yes/no) [default case : yes]");
+        			if (scanner.nextLine().equalsIgnoreCase("no")) {
+        				scanner.close();
+						return;
+					}
+        	}
+    		FileWriter newfile= new FileWriter(destination.getPath());
+        	for (String string : lines) newfile.write(string);
+    		newfile.close();
+    		System.out.println(destination.toURI());  
+    		
+    		openBrowser(destination);
+    		scanner.close();
+        }catch(IOException e){
+        	System.out.println(e.getMessage());
+        }
     }
+    
+    public void openBrowser(File f) {
+    	Scanner scanner = new Scanner( System.in );
+    	System.out.println("Do you want to open the file in your browser? (yes/no) [default case : yes]");
+		if (scanner.nextLine().equalsIgnoreCase("no")) {
+			scanner.close();
+			return;
+		}
+		try {
+    		Desktop.getDesktop().browse(f.toURI());
+		} catch (Exception e) {
+			System.out.println("No default browser.");
+		}
+		scanner.close();
+    }*/
 }

@@ -8,6 +8,7 @@ import java.util.Optional;
 import up.visulog.analyzer.Analyzer;
 import up.visulog.config.Configuration;
 import up.visulog.config.PluginConfig;
+import up.visulog.webgen; //Does not work, I don't know why
 
 
 public class CLILauncher {
@@ -29,7 +30,8 @@ public class CLILauncher {
         	argumentChecking(args);
             var analyzer = new Analyzer(config.get());
             var results = analyzer.computeResults();
-            System.out.println(results.toHTML());
+            var html = new HTML(); //Does not work, I don't know why
+            html.createHtml("index", results); //But I need the html object to use and test the code
         } else {
         	helpCMDUsed=true;
         	displayHelpAndExit();
