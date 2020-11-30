@@ -8,7 +8,7 @@ import java.util.Optional;
 import up.visulog.analyzer.Analyzer;
 import up.visulog.config.Configuration;
 import up.visulog.config.PluginConfig;
-import up.visulog.webgen; //Does not work, I don't know why
+import up.visulog.webgen.HTML; //Does not work, I don't know why
 
 
 public class CLILauncher {

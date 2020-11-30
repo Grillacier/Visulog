@@ -11,6 +11,7 @@ import java.util.Scanner;
 import htmlflow.HtmlView;
 import htmlflow.StaticHtml;
 import up.visulog.analyzer.AnalyzerPlugin;
+import up.visulog.analyzer.AnalyzerResult;
 
 public class HTML{
 
