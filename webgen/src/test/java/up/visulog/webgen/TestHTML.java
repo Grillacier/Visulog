@@ -5,7 +5,7 @@ import org.junit.Test;
 public class TestHTML{
     @Test
     public void printPage(){
-	var s = HTML.page();
+	var s = "fix test";
 	System.out.println(s);
     }
 }
