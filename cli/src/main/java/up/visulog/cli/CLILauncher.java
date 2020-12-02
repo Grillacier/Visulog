@@ -8,7 +8,7 @@ import java.util.Optional;
 import up.visulog.analyzer.Analyzer;
 import up.visulog.config.Configuration;
 import up.visulog.config.PluginConfig;
-import up.visulog.webgen.HTML; //Does not work, I don't know why
+import up.visulog.webgen.HTML;
 
 
 public class CLILauncher {
@@ -19,7 +19,7 @@ public class CLILauncher {
 			{"--addPlugin","Allows to analyze the argument put in parameter and creates an instance of PluginConfig.\n"},
 			{"--loadConfigFile","Load options from file.\n"},
 			{"--justSaveConfigFile","Allows you to save command line options to a file instead of running the scan.\n"},
-			{"--import","Choose the project you want visulog to analyze for example: --import=/home/prepro/visulog"}
+			{"--repository","Choose the project you want visulog to analyze for example: --repository=/home/prepro/visulog .\n"}
 	};
 	
 	private static boolean helpCMDUsed=false;
@@ -30,8 +30,8 @@ public class CLILauncher {
         	argumentChecking(args);
             var analyzer = new Analyzer(config.get());
             var results = analyzer.computeResults();
-            var html = new HTML(); //Does not work, I don't know why
-            html.createHtml("index", results); //But I need the html object to use and test the code
+            var html = new HTML();
+            html.createHtml("index", results);
         } else {
         	helpCMDUsed=true;
         	displayHelpAndExit();

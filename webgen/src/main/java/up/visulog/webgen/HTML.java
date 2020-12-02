@@ -46,7 +46,7 @@ public class HTML{
 	// I added an AnalyzerResult type argument to the function so that we can use the function toHTML(AnalyzerResult) (l.49)
     public void createHtml(String name, AnalyzerResult analyzerResult) {
     	try {
-        	Scanner scanner = new Scanner( System.in );
+        	//Scanner scanner = new Scanner( System.in );
         	String nom="index";
         	
         	List<String> lines = new ArrayList<String>();
@@ -59,10 +59,10 @@ public class HTML{
         	
         	if(destination.exists() && !destination.isDirectory()){
         			System.out.println("Do you want to overwrite the old file? (yes/no) [default case : yes]");
-        			if (scanner.nextLine().equalsIgnoreCase("no")) {
-        				scanner.close();
-						return;
-					}
+        			//if (scanner.nextLine().equalsIgnoreCase("no")) {
+        			//	scanner.close();
+					//	return;
+					//}
         	}
     		FileWriter newfile= new FileWriter(destination.getPath());
         	for (String string : lines) newfile.write(string);
@@ -70,25 +70,25 @@ public class HTML{
     		System.out.println(destination.toURI());  
     		
     		openBrowser(destination);
-    		scanner.close();
+    		//scanner.close();
         }catch(IOException e){
         	System.out.println(e.getMessage());
         }
     }
     
     public void openBrowser(File f) {
-    	Scanner scanner = new Scanner( System.in );
+    	//Scanner scanner = new Scanner( System.in );
     	System.out.println("Do you want to open the file in your browser? (yes/no) [default case : yes]");
-		if (scanner.nextLine().equalsIgnoreCase("no")) {
-			scanner.close();
-			return;
-		}
+		//if (scanner.nextLine().equalsIgnoreCase("no")) {
+		//	scanner.close();
+		//	return;
+		//}
 		try {
     		Desktop.getDesktop().browse(f.toURI());
 		} catch (Exception e) {
 			System.out.println("No default browser.");
 		}
-		scanner.close();
+		//scanner.close();
 	}
 	
 

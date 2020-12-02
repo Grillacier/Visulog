@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Scanner;*/
 import java.util.List;
 //import java.util.Scanner;
-import up.visulog.webgen.ToHtmlFlow;
-
 
 
 public class AnalyzerResult {
