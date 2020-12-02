@@ -1,0 +1,5 @@
+# These files will be ignored when commiting
+*.class
+
+# This file is created when opening a Java file with IntelliJ
+stale_outputs_checked

@@ -12,6 +12,7 @@ dependencies {
     implementation(project(":webgen"))
     implementation(project(":gitrawdata"))
     testImplementation("junit:junit:4.+")
+    implementation(project(":webgen"))
 }
 
 
