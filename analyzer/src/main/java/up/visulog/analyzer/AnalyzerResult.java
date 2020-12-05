@@ -1,15 +1,16 @@
 package up.visulog.analyzer;
-import java.awt.Desktop;
+
+/*import java.awt.Desktop;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;*/
 import java.util.List;
 //import java.util.Scanner;
-import up.visulog.webgen.ToHtmlFlow;
 
 
-public class AnalyzerResult implements ToHtmlFlow{
+public class AnalyzerResult {
     public List<AnalyzerPlugin.Result> getSubResults() {
         return subResults;
     }
@@ -25,13 +26,17 @@ public class AnalyzerResult implements ToHtmlFlow{
         return subResults.stream().map(AnalyzerPlugin.Result::getResultAsString).reduce("", (acc, cur) -> acc + "\n" + cur);
     }
 
-    public String toHTML() {
-        return resultHTMLFlow(subResults.stream().map(AnalyzerPlugin.Result::getResultAsHtmlDiv).reduce("", (acc, cur) -> acc + cur));
+	/*
+	 *The following functions (toHTML, createHtml, and OpenBrowser) were moved to HTML.java in webgen
+	*/
+	
+	/*public String toHTML() {
+        return "<html><body>"+subResults.stream().map(AnalyzerPlugin.Result::getResultAsHtmlDiv).reduce("", (acc, cur) -> acc + cur) + "</body></html>";
     }
 
     public void createHtml(String name) {
-        try {
-        	//Scanner scanner = new Scanner( System.in );
+    	try {
+        	Scanner scanner = new Scanner( System.in );
         	String nom="index";
         	
         	List<String> lines = new ArrayList<String>();
@@ -44,10 +49,10 @@ public class AnalyzerResult implements ToHtmlFlow{
         	
         	if(destination.exists() && !destination.isDirectory()){
         			System.out.println("Do you want to overwrite the old file? (yes/no) [default case : yes]");
-        			// if (scanner.nextLine().equalsIgnoreCase("no")) {
-        			// 	scanner.close();
-					// 	return;
-					// }
+        			if (scanner.nextLine().equalsIgnoreCase("no")) {
+        				scanner.close();
+						return;
+					}
         	}
     		FileWriter newfile= new FileWriter(destination.getPath());
         	for (String string : lines) newfile.write(string);
@@ -55,24 +60,24 @@ public class AnalyzerResult implements ToHtmlFlow{
     		System.out.println(destination.toURI());  
     		
     		openBrowser(destination);
-    		//scanner.close();
+    		scanner.close();
         }catch(IOException e){
         	System.out.println(e.getMessage());
         }
     }
     
     public void openBrowser(File f) {
-    	//Scanner scanner = new Scanner( System.in );
+    	Scanner scanner = new Scanner( System.in );
     	System.out.println("Do you want to open the file in your browser? (yes/no) [default case : yes]");
-		// if (scanner.nextLine().equalsIgnoreCase("no")) {
-		// 	scanner.close();
-		// 	return;
-		// }
+		if (scanner.nextLine().equalsIgnoreCase("no")) {
+			scanner.close();
+			return;
+		}
 		try {
     		Desktop.getDesktop().browse(f.toURI());
 		} catch (Exception e) {
 			System.out.println("No default browser.");
 		}
-		//scanner.close();
-    }
+		scanner.close();
+    }*/
 }

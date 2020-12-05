@@ -47,9 +47,16 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
             return commitsPerAuthor.toString();
         }
 
+        /*
+         * getResultAsHtmlDiv has to be moved to HTML.java in webgen
+         * For that, I don't know if the whole inner class Result has to be moved to the HTML class or not 
+         * (moving just the function getResultAsHtmlDiv isn't possible since the inner class Result must implement the inherited abstract method AnalyzerPlugin.Result.getResultAsHtmlDiv())
+         * If so, it will affect the functionment of the class CountCommitsPerAuthorPlugin since it uses the commitsPerAuthor attribut of the inner class Result
+         */
+         
         @Override
         public String getResultAsHtmlDiv() {
-            StringBuilder html = new StringBuilder("<div>Commits per author: <ul>");
+        	StringBuilder html = new StringBuilder("<div>Commits per author: <ul>");
             for (var item : commitsPerAuthor.entrySet()) {
                 html.append("<li>").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
             }
