@@ -9,11 +9,12 @@ import java.util.Scanner;
 
 public class AnalyzerResult {
 	
+	private final List<AnalyzerPlugin.Result> subResults;
+	
+	
     public List<AnalyzerPlugin.Result> getSubResults() {
         return subResults;
     }
-
-    private final List<AnalyzerPlugin.Result> subResults;
 
     public AnalyzerResult(List<AnalyzerPlugin.Result> subResults) {
         this.subResults = subResults;
@@ -40,4 +41,3 @@ public class AnalyzerResult {
 
     }
 }
-

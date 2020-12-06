@@ -5,15 +5,22 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import up.visulog.config.Configuration;
+import up.visulog.config.PluginConfig;
+
+import java.io.IOException;
+import java.nio.file.Path;
 
 import up.visulog.analyzer.Analyzer;
 import up.visulog.analyzer.AnalyzerPlugin;
 import up.visulog.analyzer.AnalyzerResult;
+import up.visulog.analyzer.CountCommitsPerAuthorPlugin;
 
 
 public class CanvasJS {
-	
+
 	public String startHTML() {
     	return "<!DOCTYPE html>\n<html>\n";
     }
@@ -32,22 +39,22 @@ public class CanvasJS {
     }
 
 
-    public String toHTML() {
-  
-    	return startHTML() + subResults.stream().map(AnalyzerPlugin.Result::getResultAsHtmlDiv).reduce("", (acc, cur) -> acc + cur) + startBody() + chartCanvas() + endBody() + endHTML();
+    public String toHTML(AnalyzerResult analyzerResult ) {
+    	return startHTML() + analyzerResult.getSubResults().stream().map(AnalyzerPlugin.Result::getResultAsHtmlDiv).reduce("", (acc, cur) -> acc + cur) + startBody() + chartCanvas() + endBody() + endHTML();
     }
     
     public String endHTML() {
     	return "</html>";
     }
 	
-	 public void createHtml(String name) {
+	 public void createHtml(String name, AnalyzerResult analyzerResult) {
 	        try {
 	        	Scanner scanner = new Scanner( System.in );
 	        	String nom="index";
 	        	
 	        	List<String> lines = new ArrayList<String>();
-	        	for (String line : toHTML().split(">"))lines.add(line+">");//allows to have a good layout of the document
+	        	//dans toHTML, mettre un AnalyzerResult en argu
+	        	for (String line : toHTML(analyzerResult).split(">"))lines.add(line+">");//allows to have a good layout of the document
 	        	
 	        	if (!name.equals(""))nom=name;//attributes the name to the file
 	        	File destination = new File(nom+".html");
@@ -66,9 +73,7 @@ public class CanvasJS {
 	    		newfile.close();
 	    		System.out.println(destination.toURI());  
 	    		
-	    		AnalyzerResult listResult = new AnalyzerResult (List<AnalyzerPlugin.Result>);
-	    		var subResults = listResult.getSubResults();
-	    		subResults.openBrowser(destination);
+	    		analyzerResult.openBrowser(destination);
 	    		scanner.close();
 	        }catch(IOException e){
 	        	System.out.println(e.getMessage());
@@ -76,38 +81,7 @@ public class CanvasJS {
 	    }
 	
 
-	  public String getResultAsHtmlDiv()  {
-      	StringBuilder script = new StringBuilder("<head>\n<script>\n window.onload = function () {\n"
-      			+"var chart = new CanvasJS.Chart(\"chartContainer\", {\n"
-      			+ "animationEnabled: true,\n"
-      			+ "title: {\n"
-      			+ "text:\"Commits per author\"\n"
-      			+ "},\n"
-      			+ "axisX:{\n"
-      			+ "interval: 1\n"
-      			+ "},\n"
-      			+ "axisY2:{\n"
-      			+ "interlacedColor: \"rgba(1,77,101,.2)\",\n"
-      			+ "gridColor: \"rgba(1,77,101,.1)\",\n"
-      			+ "title: \"Number of Commits\"\n"
-      			+ "},\n"
-      			+ "data: [{\n"
-      			+ "type: \"bar\",\n"
-      			+ "name: \"author\",\n"
-      			+ "axisYType: \"secondary\",\n"
-      			+ "color: \"#014D65\",\n"
-      			+ "dataPoints: [\n");
-      	for (var item : .getCommitsPerAuthor().entrySet()) {
-      		script.append("{ y: ").append(item.getValue()).append(", label: \"").append(item.getKey()).append("\"},\n");
-      	}
-      	script.append("{ y: 0, label: \"Author\"}\n"
-      			+ "]\n"
-      			+ "}]\n"
-      			+ "});\n"
-      			+ "chart.render();\n"
-      			+ "}\n"
-      			+ "</script>\n</head>\n");
-      	return script.toString();
-      }
-	
+	  
+	  
 	}
+	
