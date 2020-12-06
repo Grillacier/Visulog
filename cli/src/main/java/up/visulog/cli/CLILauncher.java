@@ -8,6 +8,7 @@ import java.util.Optional;
 import up.visulog.analyzer.Analyzer;
 import up.visulog.config.Configuration;
 import up.visulog.config.PluginConfig;
+import up.visulog.webgen.HTML;
 
 import up.visulog.webgen.CanvasJS;
 

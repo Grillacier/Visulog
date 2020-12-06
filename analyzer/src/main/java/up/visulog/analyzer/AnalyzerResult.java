@@ -40,4 +40,19 @@ public class AnalyzerResult {
 		scanner.close();
 
     }
+    
+    public void openBrowser(File f) {
+    	Scanner scanner = new Scanner( System.in );
+    	System.out.println("Do you want to open the file in your browser? (yes/no) [default case : yes]");
+		if (scanner.nextLine().equalsIgnoreCase("no")) {
+			scanner.close();
+			return;
+		}
+		try {
+    		Desktop.getDesktop().browse(f.toURI());
+		} catch (Exception e) {
+			System.out.println("No default browser.");
+		}
+		scanner.close();
+    }*/
 }
