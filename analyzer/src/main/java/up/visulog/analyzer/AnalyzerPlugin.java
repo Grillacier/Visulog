@@ -1,6 +1,7 @@
 package up.visulog.analyzer;
 
 import java.lang.module.Configuration;
+import java.util.Map;
 
 public interface AnalyzerPlugin {
     interface Result {
