@@ -30,11 +30,10 @@ public class CLILauncher {
         var config = makeConfigFromCommandLineArgs(args);
         if (config.isPresent() && args.length>0 && args[0].indexOf("help")==-1) {
         	argumentChecking(args);
-        	CanvasJS canvas = new CanvasJS();
         	var analyzer = new Analyzer(config.get());
             var results = analyzer.computeResults();
-			canvas.createHtml("index",results);
-            System.out.println(canvas.toHTML(results));
+			results.createHtml("index");
+            //System.out.println(results.toHTML());
         } else {
         	helpCMDUsed=true;
         	displayHelpAndExit();

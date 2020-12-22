@@ -3,7 +3,7 @@ package up.visulog.analyzer;
 import up.visulog.analyzer.CountCommitsPerAuthorPlugin.Result;
 import up.visulog.config.Configuration;
 import up.visulog.gitrawdata.Commit;
-import up.visulog.webgen.CanvasJS;
+/*import up.visulog.webgen.CanvasJS;*/
 
 import java.util.HashMap;
 import java.util.List;
@@ -52,40 +52,32 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
         }
 
         
-        public String getResultAsHtmlDiv()  {
-          	StringBuilder script = new StringBuilder("<head>\n<script>\n window.onload = function () {\n"
-          			+"var chart = new CanvasJS.Chart(\"chartContainer\", {\n"
-          			+ "animationEnabled: true,\n"
-          			+ "title: {\n"
-          			+ "text:\"Commits per author\"\n"
-          			+ "},\n"
-          			+ "axisX:{\n"
-          			+ "interval: 1\n"
-          			+ "},\n"
-          			+ "axisY2:{\n"
-          			+ "interlacedColor: \"rgba(1,77,101,.2)\",\n"
-          			+ "gridColor: \"rgba(1,77,101,.1)\",\n"
-          			+ "title: \"Number of Commits\"\n"
-          			+ "},\n"
-          			+ "data: [{\n"
-          			+ "type: \"bar\",\n"
-          			+ "name: \"author\",\n"
-          			+ "axisYType: \"secondary\",\n"
-          			+ "color: \"#014D65\",\n"
-          			+ "dataPoints: [\n");
-          
-        	for (var item : commitsPerAuthor.entrySet()) {
-          		script.append("{ y: ").append(item.getValue()).append(", label: \"").append(item.getKey()).append("\"},\n");
-          	}
-          	script.append("{ y: 0, label: \"Author\"}\n"
-          			+ "]\n"
-          			+ "}]\n"
-          			+ "});\n"
-          			+ "chart.render();\n"
-          			+ "}\n"
-          			+ "</script>\n</head>\n");
-          	return script.toString();
-          }
+        @Override
+        public String getResultAsHtmlDiv() {
+            StringBuilder html = new StringBuilder("<div>Commits per author: <ul>");
+            for (var item : commitsPerAuthor.entrySet()) {
+                html.append("<li>").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
+            }
+            html.append("</ul></div>");
+            return html.toString();
+        }
+        
+        @Override
+        public String getResultAsStringValue() {
+        	String parse="";
+            for (var item : commitsPerAuthor.entrySet()) {
+            	parse+=item.getValue()+",";
+            }
+            return parse;
+        }
+        
+        public String getResultAsStringKey() {
+        	String parse="";
+            for (var item : commitsPerAuthor.entrySet()) {
+            	parse+=item.getKey()+",";
+            }
+            return parse;
+        }
     }
 }
 

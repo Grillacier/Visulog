@@ -7,6 +7,8 @@ public interface AnalyzerPlugin {
     interface Result {
         String getResultAsString();
         String getResultAsHtmlDiv();
+        String getResultAsStringValue();
+        String getResultAsStringKey();
     }
 
     /**
