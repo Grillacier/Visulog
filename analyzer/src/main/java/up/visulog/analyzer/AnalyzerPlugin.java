@@ -6,7 +6,11 @@ public interface AnalyzerPlugin extends Runnable {
     interface Result {
         String getResultAsString();
         String getResultAsHtmlDiv();
+        String getResultAsStringValue();
+        String getResultAsStringKey();
     }
+    
+    public static final String name = "";
 
     /**
      * run this analyzer plugin

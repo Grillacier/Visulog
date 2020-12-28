@@ -8,35 +8,36 @@ import java.util.Optional;
 import up.visulog.analyzer.Analyzer;
 import up.visulog.config.Configuration;
 import up.visulog.config.PluginConfig;
+import up.visulog.webgen.HTML;
+
+import up.visulog.webgen.CanvasJS;
 
 
 public class CLILauncher {
 
-	// TODO: re-explain CMD
 	/*list of commands and their meanings*/
 	private static final String CMDList[][]= {
 			{"--addPlugin","Allows to analyze the argument put in parameter and creates an instance of PluginConfig.\n"},
 			{"--loadConfigFile","Load options from file.\n"},
 			{"--justSaveConfigFile","Allows you to save command line options to a file instead of running the scan.\n"},
-			{"--repository","Choose the project you want visulog to analyze for example: --repository=/home/prepro/visulog .\n"}
+			{"--import","Choose the project you want visulog to analyze for example: --import=/home/prepro/visulog"}
 	};
-
+	
 	private static boolean helpCMDUsed=false;
-
+	
     public static void main(String[] args) {
         var config = makeConfigFromCommandLineArgs(args);
         if (config.isPresent() && args.length>0 && args[0].indexOf("help")==-1) {
         	argumentChecking(args);
-            var analyzer = new Analyzer(config.get());
+        	var analyzer = new Analyzer(config.get());
             var results = analyzer.computeResults();
-						results.createHtml("index");
-            System.out.println(results.toHTML());
+			results.createHtml("index");
         } else {
         	helpCMDUsed=true;
         	displayHelpAndExit();
         }
     }
-
+    
     public static void argumentChecking(String args[]) {
     	boolean flag=false;
     	for (int i=0; i<args.length; i++) {
@@ -49,7 +50,7 @@ public class CLILauncher {
     static Optional<Configuration> makeConfigFromCommandLineArgs(String[] args) {
     	var gitPath=FileSystems.getDefault().getPath(".");
     	String flagGitPath= ".";
-
+    	
         var plugins = new HashMap<String, PluginConfig>();
         for (var arg : args) {
             if (arg.startsWith("--")) {

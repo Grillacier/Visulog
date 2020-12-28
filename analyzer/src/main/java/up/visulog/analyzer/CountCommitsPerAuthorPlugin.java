@@ -2,10 +2,10 @@ package up.visulog.analyzer;
 
 import up.visulog.config.Configuration;
 import up.visulog.gitrawdata.Commit;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
     private final Configuration configuration;
@@ -35,10 +35,11 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
         return result;
     }
 
-    static class Result implements AnalyzerPlugin.Result {
+	
+	public static class Result implements AnalyzerPlugin.Result {
         private final Map<String, Integer> commitsPerAuthor = new HashMap<>();
 
-        Map<String, Integer> getCommitsPerAuthor() {
+        public Map<String, Integer> getCommitsPerAuthor() {
             return commitsPerAuthor;
         }
 
@@ -46,15 +47,29 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
         public String getResultAsString() {
             return commitsPerAuthor.toString();
         }
-
+        
         @Override
         public String getResultAsHtmlDiv() {
-            StringBuilder html = new StringBuilder("<div>Commits per author: <ul>");
-            for (var item : commitsPerAuthor.entrySet()) {
-                html.append("<li>").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
-            }
-            html.append("</ul></div>");
+        	StringBuilder html = new StringBuilder("<h1 style='text-align: center;'> Count Commits Per Author </h1>");
             return html.toString();
+        }
+        
+        @Override
+        public String getResultAsStringValue() {
+        	String parse="";
+            for (var item : commitsPerAuthor.entrySet()) {
+            	parse+=item.getValue()+",";
+            }
+            return parse;
+        }
+        
+        public String getResultAsStringKey() {
+        	String parse="";
+            for (var item : commitsPerAuthor.entrySet()) {
+            	parse+=item.getKey()+",";
+            }
+            return parse;
         }
     }
 }
+

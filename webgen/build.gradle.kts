@@ -12,5 +12,3 @@ dependencies {
     testImplementation("junit:junit:4.+")
     implementation("com.github.xmlet:htmlflow:3.5")
 }
-
-
