@@ -15,7 +15,6 @@ import up.visulog.webgen.CanvasJS;
 
 public class CLILauncher {
 
-	// TODO: re-explain CMD
 	/*list of commands and their meanings*/
 	private static final String CMDList[][]= {
 			{"--addPlugin","Allows to analyze the argument put in parameter and creates an instance of PluginConfig.\n"},
@@ -33,7 +32,6 @@ public class CLILauncher {
         	var analyzer = new Analyzer(config.get());
             var results = analyzer.computeResults();
 			results.createHtml("index");
-            //System.out.println(results.toHTML());
         } else {
         	helpCMDUsed=true;
         	displayHelpAndExit();

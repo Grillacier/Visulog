@@ -30,14 +30,13 @@ public class AnalyzerResult {
     public String toHTML() {
     	String temptabValue=subResults.stream().map(AnalyzerPlugin.Result::getResultAsStringValue).reduce("", (acc, cur) -> acc + cur);
     	String temptabKey=subResults.stream().map(AnalyzerPlugin.Result::getResultAsStringKey).reduce("", (acc, cur) -> acc + cur);
-
-  
+    	
     	List<String> value= Arrays.asList(temptabValue.split(","));
     	List<String> label= Arrays.asList(temptabKey.split(","));
-//        return null;
+
     	return HTML.resultHTMLFlow(subResults.stream().map(AnalyzerPlugin.Result::getResultAsHtmlDiv).reduce("", (acc, cur) -> acc + cur)
         		,CanvasJS.importCanvasjs()
-        		,CanvasJS.createGraph("C'est mon titre", label, value)
+        		,CanvasJS.createGraph(label, value)
         		,CanvasJS.importHtmlCanvasjs());
     }
     

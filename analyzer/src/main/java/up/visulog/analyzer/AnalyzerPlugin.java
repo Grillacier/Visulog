@@ -1,8 +1,5 @@
 package up.visulog.analyzer;
 
-import java.lang.module.Configuration;
-import java.util.Map;
-
 public interface AnalyzerPlugin {
     interface Result {
         String getResultAsString();
@@ -10,6 +7,8 @@ public interface AnalyzerPlugin {
         String getResultAsStringValue();
         String getResultAsStringKey();
     }
+    
+    public static final String name = "";
 
     /**
      * run this analyzer plugin

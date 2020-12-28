@@ -1,10 +1,7 @@
 package up.visulog.analyzer;
 
-import up.visulog.analyzer.CountCommitsPerAuthorPlugin.Result;
 import up.visulog.config.Configuration;
 import up.visulog.gitrawdata.Commit;
-/*import up.visulog.webgen.CanvasJS;*/
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,15 +47,10 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
         public String getResultAsString() {
             return commitsPerAuthor.toString();
         }
-
         
         @Override
         public String getResultAsHtmlDiv() {
-            StringBuilder html = new StringBuilder("<div>Commits per author: <ul>");
-            for (var item : commitsPerAuthor.entrySet()) {
-                html.append("<li>").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
-            }
-            html.append("</ul></div>");
+        	StringBuilder html = new StringBuilder("<h1 style='text-align: center;'> Count Commits Per Author </h1>");
             return html.toString();
         }
         
