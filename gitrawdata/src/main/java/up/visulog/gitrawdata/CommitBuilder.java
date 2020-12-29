@@ -47,6 +47,6 @@ public class CommitBuilder {
     }
 
     public Commit createCommit() {
-        return new Commit(id, author, date, description, mergedFrom, modificationAdd, modificationAdd);
+        return new Commit(id, author, date, description, mergedFrom, modificationAdd, modificationDel);
     }
 }

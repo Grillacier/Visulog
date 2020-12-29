@@ -64,7 +64,8 @@ public class CLILauncher {
                     	// TODO: parse argument and make an instance of PluginConfig
                         // Let's just trivially do this, before the TODO is fixed:
                         if (pValue.equals("countCommits")) plugins.put("countCommits", new PluginConfig(){});
-                        if (pValue.equals("countModificationsAdd")) plugins.put("countModificationsAdd", new PluginConfig(){});
+                       else if (pValue.equals("countModificationsAdd")) plugins.put("countModificationsAdd", new PluginConfig(){});
+                       else if (pValue.equals("countModificationsDel")) plugins.put("countModificationsDel", new PluginConfig(){});
 					}else if (pName.equals(CMDList[1][0])) {
 						// TODO (load options from a file)
 					}else if (pName.equals(CMDList[2][0])) {
