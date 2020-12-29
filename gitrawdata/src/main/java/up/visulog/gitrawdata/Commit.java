@@ -18,10 +18,12 @@ public class Commit {
     public final String mergedFrom;
     public final int modificationAdd;
     public final int modificationDel;
+    public final int modificationAll;
 
     public Commit(String id, String author, String date, String description, String mergedFrom, int modificationDel, int modificationAdd) {
         this.modificationDel = modificationDel;
 		this.modificationAdd = modificationAdd;
+        this.modificationAll = modificationAdd + modificationDel;
 		this.id = id;
         this.author = author;
         this.date = date;
