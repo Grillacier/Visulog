@@ -42,6 +42,7 @@ public class Analyzer {
     private Optional<AnalyzerPlugin> makePlugin(String pluginName, PluginConfig pluginConfig) {
         switch (pluginName) {
             case "countCommits" : return Optional.of(new CountCommitsPerAuthorPlugin(config));
+            case "countModificationsAdd" : return Optional.of(new CountModificationsAddPerAuthor(config));
             default : return Optional.empty();
         }
     }
