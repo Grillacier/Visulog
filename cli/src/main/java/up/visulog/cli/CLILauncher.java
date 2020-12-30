@@ -1,9 +1,13 @@
 package up.visulog.cli;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.nio.file.FileSystems;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 import java.io.IOException;
 
@@ -31,15 +35,21 @@ public class CLILauncher {
         var config = makeConfigFromCommandLineArgs(args);
         if (config.isPresent() && args.length>0 && args[0].indexOf("help")==-1) {
         	argumentChecking(args);
-        	var analyzer = new Analyzer(config.get());
-            var results = analyzer.computeResults();
-			results.createHtml("index");
+        	if (!args[0].contains("--loadConfigFile")) {
+        		ConfigFile(config, "index");
+			}
         } else {
         	helpCMDUsed=true;
         	displayHelpAndExit();
         }
     }
 
+    public static void ConfigFile(Optional<Configuration> config, String name) {
+    	var analyzer = new Analyzer(config.get());
+        var results = analyzer.computeResults();
+		results.createHtml("index"+name);
+	}
+    
     /**
      * function checking if arguments are correctly entered when launching the project
      * if no, a list of commands is diplayed using another function
@@ -79,7 +89,30 @@ public class CLILauncher {
                        else if (pValue.equals("countModificationsDel")) plugins.put("countModificationsDel", new PluginConfig(){});
                        else if (pValue.equals("countTotal")) plugins.put("countTotal", new PluginConfig(){});
 					}else if (pName.equals(CMDList[1][0])) {
-						// TODO (load options from a file)
+						/// Load file to run several cmds
+						try {
+							File file = new File(pValue);
+						    if (file.exists() && file.isFile()) {
+						    	
+						    	String line="";
+						    	BufferedReader buff = new BufferedReader(new FileReader(file));
+						    	List<String> list = new ArrayList<String>();
+						    	while ((line = buff.readLine()) != null) { 
+						    		list.add(line);
+						    	}
+						    	list.forEach(element -> {
+						    		ConfigFile(makeConfigFromCommandLineArgs(new String[] {element}), element);
+						    	});
+						    	
+						    } else {
+						         System.out.println("Mauvais chemin");
+						         return Optional.empty();
+						    }
+						} catch (Exception e) {
+							e.printStackTrace();
+							System.out.println("Erreur de fichier");
+					         return Optional.empty();
+						}
 					}
                     /**
                      * saving the paramettters in a new file named savedConfig.txt
