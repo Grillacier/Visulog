@@ -1,9 +1,11 @@
 package up.visulog.cli;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.nio.file.FileSystems;
 import java.util.HashMap;
 import java.util.Optional;
+import java.io.IOException;
 
 import up.visulog.analyzer.Analyzer;
 import up.visulog.config.Configuration;
@@ -37,7 +39,13 @@ public class CLILauncher {
         	displayHelpAndExit();
         }
     }
-    
+
+    /**
+     * function checking if arguments are correctly entered when launching the project
+     * if no, a list of commands is diplayed using another function
+     * @see displayHelpAndExit()
+     * @param args
+     */
     public static void argumentChecking(String args[]) {
     	boolean flag=false;
     	for (int i=0; i<args.length; i++) {
@@ -55,11 +63,14 @@ public class CLILauncher {
         for (var arg : args) {
             if (arg.startsWith("--")) {
                 String[] parts = arg.split("=");
-                if (parts.length != 2) return Optional.empty();
-                else {
+                //if (parts.length != 2) return Optional.empty();
+                //else {
                     String pName = parts[0];
                     String pValue = parts[1];
 
+                    /**
+                     * creating the right plugin according to the command written
+                     */
                     if (pName.equals(CMDList[0][0])) {
                     	// TODO: parse argument and make an instance of PluginConfig
                         // Let's just trivially do this, before the TODO is fixed:
@@ -69,8 +80,19 @@ public class CLILauncher {
                        else if (pValue.equals("countTotal")) plugins.put("countTotal", new PluginConfig(){});
 					}else if (pName.equals(CMDList[1][0])) {
 						// TODO (load options from a file)
-					}else if (pName.equals(CMDList[2][0])) {
-						// TODO (save command line options to a file instead of running the analysis)
+					}
+                    /**
+                     * saving the paramettters in a new file named savedConfig.txt
+                     * or writing in this file if it already exists
+                     */
+                    else if (pName.equals(CMDList[2][0])) {
+                        try {
+                            FileWriter fileSave = new FileWriter("savedConfig.txt", true);
+                            fileSave.write(args[0].substring(21) + "\n");
+                            fileSave.close();
+                        } catch (IOException e) {
+                            System.err.println(e.getMessage());
+                        }
 					}else if (pName.equals(CMDList[3][0])) {
 						File file = new File(pValue);
 						if(file.exists() && file.isDirectory()) {
@@ -78,13 +100,16 @@ public class CLILauncher {
 							flagGitPath=pValue;
 						}
 					}else return Optional.empty();
-                }
+                //}
             } else gitPath = FileSystems.getDefault().getPath(arg);
         }
         System.out.println("Project analysis: "+ (!flagGitPath.equals(".") ? flagGitPath : "Visulog (default)"));//Debug
         return Optional.of(new Configuration(gitPath, plugins));
     }
 
+    /**
+     * function displaying all availables commands when the one written is wrong
+     */
     private static void displayHelpAndExit() {
         if (!helpCMDUsed) System.out.println("Wrong command... One of your arguments is surely wrong.");
         System.out.println("Here is the list of commands:");
