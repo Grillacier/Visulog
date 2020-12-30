@@ -6,11 +6,31 @@ public class CommitBuilder {
     private String date;
     private String description;
     private String mergedFrom;
+    private int modificationAdd;
+    private int modificationDel;
+    private int modificationAll;
 
     public CommitBuilder(String id) {
         this.id = id;
     }
 
+    /*CountModificationPerAuthor*/
+    public CommitBuilder setModificationAdd(int modificationAdd) {
+        this.modificationAdd = modificationAdd;
+        return this;
+    }
+
+    public CommitBuilder setModificationDel(int modificationDel) {
+        this.modificationDel = modificationDel;
+        return this;
+    }
+    /*CountModificationPerAuthor*/
+
+    public CommitBuilder setTotal(int modificationAll) {
+        this.modificationAll = modificationAll;
+        return this;
+    }
+    
     public CommitBuilder setAuthor(String author) {
         this.author = author;
         return this;
@@ -32,6 +52,6 @@ public class CommitBuilder {
     }
 
     public Commit createCommit() {
-        return new Commit(id, author, date, description, mergedFrom);
+        return new Commit(id, author, date, description, mergedFrom, modificationAdd, modificationDel);
     }
 }

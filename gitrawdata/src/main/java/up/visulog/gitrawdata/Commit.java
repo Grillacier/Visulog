@@ -16,9 +16,15 @@ public class Commit {
     public final String author;
     public final String description;
     public final String mergedFrom;
+    public final int modificationAdd;
+    public final int modificationDel;
+    public final int modificationAll;
 
-    public Commit(String id, String author, String date, String description, String mergedFrom) {
-        this.id = id;
+    public Commit(String id, String author, String date, String description, String mergedFrom, int modificationDel, int modificationAdd) {
+        this.modificationDel = modificationDel;
+		this.modificationAdd = modificationAdd;
+        this.modificationAll = modificationAdd + modificationDel;
+		this.id = id;
         this.author = author;
         this.date = date;
         this.description = description;
@@ -28,7 +34,7 @@ public class Commit {
     // TODO: factor this out (similar code will have to be used for all git commands)
     public static List<Commit> parseLogFromCommand(Path gitPath) {
         ProcessBuilder builder =
-                new ProcessBuilder("git", "log").directory(gitPath.toFile());
+                new ProcessBuilder("git", "log", "--numstat").directory(gitPath.toFile());
         Process process;
         try {
             process = builder.start();
@@ -56,14 +62,36 @@ public class Commit {
      */
     public static Optional<Commit> parseCommit(BufferedReader input) {
         try {
-
+        	
             var line = input.readLine();
             if (line == null) return Optional.empty(); // if no line can be read, we are done reading the buffer
             var idChunks = line.split(" ");
+            
+            int cptUserAdd=0;
+            int cptUserDel=0;
+            int cptUserSum=0;
+            
+            while (!idChunks[0].equals("commit")) {
+            	
+                //System.out.println(Arrays.toString(idChunks[0].split("\t")));
+                
+                if (idChunks[0].split("\t")[0].length()!=0 && !idChunks[0].split("\t")[0].equals("-")) {
+                	cptUserAdd+=Integer.valueOf(idChunks[0].split("\t")[0]);
+                	cptUserDel+=Integer.valueOf(idChunks[0].split("\t")[1]);
+                	cptUserSum=cptUserAdd+cptUserDel;
+                }
+                
+                line = input.readLine();
+                if (line == null) return Optional.empty(); // if no line can be read, we are done reading the buffer
+                idChunks = line.split(" ");
+				
+			}
+            
             if (!idChunks[0].equals("commit")) parseError();
             var builder = new CommitBuilder(idChunks[1]);
-
-            line = input.readLine();
+            
+            line = input.readLine();            
+            
             while (!line.isEmpty()) {
                 var colonPos = line.indexOf(":");
                 var fieldName = line.substring(0, colonPos);
@@ -80,10 +108,15 @@ public class Commit {
                         break;
                     default: // TODO: warn the user that some field was ignored
                 }
+                
+                builder.setModificationAdd(cptUserAdd);
+                builder.setModificationDel(cptUserDel);
+                //builder.set TODO cptUserSum
+                
                 line = input.readLine(); //prepare next iteration
                 if (line == null) parseError(); // end of stream is not supposed to happen now (commit data incomplete)
             }
-
+            
             // now read the commit message per se
             var description = input
                     .lines() // get a stream of lines to work with
