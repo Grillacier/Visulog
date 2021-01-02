@@ -77,7 +77,7 @@ public class CountModificationsDelPerAuthor implements AnalyzerPlugin{
         public String getResultAsString() {
             return modificationPerAuthor.toString();
         }
-      }
+
       /**
       *Create an html division
       *
