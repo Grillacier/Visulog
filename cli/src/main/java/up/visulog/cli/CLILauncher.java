@@ -21,12 +21,18 @@ import up.visulog.webgen.CanvasJS;
 
 public class CLILauncher {
 
-	/*list of commands and their meanings*/
+	/*list of commands/plugins and their meanings*/
 	private static final String CMDList[][]= {
 			{"--addPlugin","Allows to analyze the argument put in parameter and creates an instance of PluginConfig.\n"},
 			{"--loadConfigFile","Load options from file.\n"},
 			{"--justSaveConfigFile","Allows you to save command line options to a file instead of running the scan.\n"},
-			{"--import","Choose the project you want visulog to analyze for example: --import=/home/prepro/visulog"}
+			{"--loadProject","Choose the project you want visulog to analyze for example: --loadProject=/home/prepro/visulog .\n\n"}
+	};
+	private static final String PLUGINList[][]= {
+			{"countCommits","Allows counting the number of commits made by the user.\n"},
+			{"countModificationsAdd","Allows counting the number of modifications added to the project per user.\n"},
+			{"countModificationsDel","Allows counting the number of modifications deleted to the project per user.\n"},
+			{"countTotal","Allows counting the number of modifications added and deleted to the project per user.\n"}
 	};
 	
 	private static boolean helpCMDUsed=false;
@@ -145,9 +151,10 @@ public class CLILauncher {
      */
     private static void displayHelpAndExit() {
         if (!helpCMDUsed) System.out.println("Wrong command... One of your arguments is surely wrong.");
-        System.out.println("Here is the list of commands:");
-        //print the list of options and their syntax
+        System.out.println("Here is the list of commands:");//print the list of options/plugin and their syntax
         for (String optionsAndSyntax[] : CMDList)for (String optionsOrSyntax : optionsAndSyntax) System.out.println(optionsOrSyntax);
+        System.out.println("Here is the list of plugin:");//print the list of options/plugin and their syntax
+        for (String pluginAndSyntax[] : PLUGINList)for (String pluginOrSyntax : pluginAndSyntax) System.out.println(pluginOrSyntax);
         System.exit(0);
     }
 }
