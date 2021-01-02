@@ -14,21 +14,10 @@ public class Analyzer {
 
     private AnalyzerResult result;
 
-    /**
-      *Constructor of Analyzer
-      *
-      *@param config Set the config with this one
-    */
-
     public Analyzer(Configuration config) {
         this.config = config;
     }
 
-    /**
-      * Create an AnalyzerResult with different plugin
-      *
-      *@return result of a search of plugins
-      */
     public AnalyzerResult computeResults() {
         List<AnalyzerPlugin> plugins = new ArrayList<>();
         for (var pluginConfigEntry: config.getPluginConfigs().entrySet()) {
@@ -50,15 +39,6 @@ public class Analyzer {
     }
 
     // TODO: find a way so that the list of plugins is not hardcoded in this factory
-    /**
-      *Return a plugin depending of the parametre
-      *
-      *@param pluginName The name of the pluginName
-      *@param pluginConfig The configuration of the pluginName
-      *
-      *@return The plugin that match with the name
-
-    */
     private Optional<AnalyzerPlugin> makePlugin(String pluginName, PluginConfig pluginConfig) {
         switch (pluginName) {
             case "countCommits" : return Optional.of(new CountCommitsPerAuthorPlugin(config));
@@ -66,7 +46,7 @@ public class Analyzer {
             case "countModificationsDel" : return Optional.of(new CountModificationsDelPerAuthor(config));
             case "countTotal" : return Optional.of(new CountTotal(config));
             default : return Optional.empty();
-
+            
         }
     }
 
