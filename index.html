@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+ window.onload = function () {
+var chart = new CanvasJS.Chart("chartContainer", {
+animationEnabled: true,
+title: {
+text:"Commits per author"
+},
+axisX:{
+interval: 1
+},
+axisY2:{
+interlacedColor: "rgba(1,77,101,.2)",
+gridColor: "rgba(1,77,101,.1)",
+title: "Number of Commits"
+},
+data: [{
+type: "bar",
+name: "author",
+axisYType: "secondary",
+color: "#014D65",
+dataPoints: [
+{ y: 2, label: "SAAD david <david2maykel@gmail.com>"},
+{ y: 1, label: "BA ibrahima <ibrahima.bamoctar@gmail.com>"},
+{ y: 5, label: "BAH awa <bah.awaa@gmail.com>"},
+{ y: 1, label: "FOUQUET aurelie <aurfouquet@gmail.com>"},
+{ y: 2, label: "CHHAY davy <davychhay14@gmail.com>"},
+{ y: 1, label: "TAN julia <juliatan@hotmail.fr>"},
+{ y: 2, label: "Julia Tan <juliatan@hotmail.fr>"},
+{ y: 12, label: "Aldric Degorre <adegorre@irif.fr>"},
+{ y: 1, label: "Colin Gonzalez <colin@nomadic-labs.com>"},
+{ y: 2, label: "Alaia <alaia98@gmail.com>"},
+{ y: 1, label: "SILVESTRE alaia <alaia98@gmail.com>"},
+{ y: 1, label: "Awa <bah.awaa@gmail.com>"},
+{ y: 2, label: "David Saad <david2maykel@gmail.com>"},
+{ y: 0, label: "Author"}
+]
+}]
+});
+chart.render();
+}
+</script>
+</head>
+<body>
+<div id="chartContainer" style="height: 370px; width: 70%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>
